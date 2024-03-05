@@ -2,7 +2,7 @@
     Author: Rohan Dayaram
     Date: 2024-03-05
     Description: This is a simple script to fill out a form on a website using selenium
-    https://github.com/rohanday3/GFLRegistration
+    https://github.com/rohanday3/GFLAttendance
     Version: 1.0
 '''
 
