@@ -13,8 +13,8 @@ This Python program automates the process of filling out the attendance form for
 ## Prerequisites
 
 - Python 3.x
-- Mozilla Firefox installed
-- Geckodriver executable
+- Mozilla Firefox installed (Windows) or Chromium installed (Linux)
+- Geckodriver executable (Windows) or Chromedriver executable (Linux)
 
 ## Setup
 
