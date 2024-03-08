@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 '''
     Author: Rohan Dayaram
     Date: 2024-03-05
@@ -10,22 +12,25 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-import selenium.webdriver.firefox.options
-from selenium.webdriver.firefox.service import Service
+from selenium.webdriver.chrome.service import Service as ChromeService
+from selenium.webdriver.chrome.options import Options
+from pyvirtualdisplay import Display
 import datetime
 
 from time import sleep
 from json import *
 
+chrome_options = Options()
+chrome_options.add_argument("--headless")
+
+chrome_service = ChromeService("/usr/lib/chromium-browser/chromedriver")
+
 class FormFiller:
     def __init__(self,data):
         self.data = data
-        # import the file firefox geckodriver
-        options = selenium.webdriver.firefox.options.Options()
-        options.binary_location = "C:/Program Files/Mozilla Firefox/firefox.exe"
-        gecko_path = "C:/Program Files/Mozilla Firefox/geckodriver.exe"
-        service = Service(gecko_path)
-        self.driver = webdriver.Firefox(options=options, service=service)
+        display = Display(visible=0, size=(800, 600))
+        display.start()
+        self.driver = webdriver.Chrome(service=chrome_service, options=chrome_options)
 
     # get the form site
     def get_form(self):
@@ -38,7 +43,7 @@ class FormFiller:
         except:
             print("Form not found")
             return None
-        
+
         # fill the form
     def fill_form(self):
         form = self.get_form()
@@ -58,10 +63,10 @@ class FormFiller:
             module.click()
             submit = questions.find_element(By.XPATH, '//*[@id="form-main-content1"]/div/div/div[2]/div[3]/div/button')
             submit.click()
+            self.driver.quit()
 
 if __name__ == "__main__":
     with open("login.json", "r") as file:
         data = load(file)
     form = FormFiller(data)
     form.fill_form()
-    
