@@ -58,7 +58,6 @@ class FormFiller:
             modules = questions.find_elements(By.XPATH, modules_path)
             for module in modules:
                 module_name = module.find_element(By.XPATH, 'div/label/span[2]')
-                print(module_name.text)
                 if module_name.text == self.data["module"]:
                     module.click()
                     break
