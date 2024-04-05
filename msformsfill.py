@@ -59,8 +59,14 @@ class FormFiller:
             date = questions.find_element(By.XPATH, '//*[@id="DatePicker0-label"]')
             # M/d/yyyy
             date.send_keys(datetime.datetime.now().strftime("%m/%d/%Y"))
-            module = questions.find_element(By.XPATH, '//*[@id="question-list"]/div[4]/div[2]/div/div/div[2]')
-            module.click()
+            modules_path = '//*[@id="question-list"]/div[4]/div[2]/div/div/div'
+            modules = questions.find_elements(By.XPATH, modules_path)
+            for module in modules:
+                module_name = module.find_element(By.XPATH, 'div/label/span[2]')
+                print(module_name.text)
+                if module_name.text == self.data["module"]:
+                    module.click()
+                    break
             submit = questions.find_element(By.XPATH, '//*[@id="form-main-content1"]/div/div/div[2]/div[3]/div/button')
             submit.click()
             self.driver.quit()
